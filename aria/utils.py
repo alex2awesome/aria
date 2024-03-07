@@ -11,7 +11,7 @@ from pydub import AudioSegment
 def midi_to_audio(mid_path: str, soundfont_path: str | None = None):
     here =  os.path.dirname(__file__)
     FLUIDSYNTH_DIR = os.path.join(here, "..", "fluidsynth")
-    SOUNDFONT_PATH = os.path.join(here, "..", "DoreMarkYamahaS6-v1.6.sf2")
+    SOUNDFONT_PATH = os.path.join(FLUIDSYNTH_DIR, "DoreMarkYamahaS6-v1.6.sf2")
     DOWNLOAD_URL = "https://www.dropbox.com/scl/fi/t8gou8stesm42sc559nzu/DoreMarkYamahaS6-v1.6.sf2?rlkey=28ecl63kkjjmwxrkd6hnzsq8f&dl=1"
 
     if os.name != "posix":
@@ -24,6 +24,7 @@ def midi_to_audio(mid_path: str, soundfont_path: str | None = None):
         )
         if _input == "Y":
             if not os.path.isdir(FLUIDSYNTH_DIR):
+                print(f"making dir: {FLUIDSYNTH_DIR}")
                 os.mkdir(FLUIDSYNTH_DIR)
 
             res = requests.get(url=DOWNLOAD_URL)
